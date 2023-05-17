@@ -1,31 +1,31 @@
 resource "azurerm_resource_group" "rg" {
-  name     = var.rg
-  location = var.location
+  name     = "network-rg"
+  location = "canadacentral"
 }
 
 resource "azurerm_virtual_network" "vnet" {
-  name                = var.vnet
+  name                = "network-vnet"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
-  address_space       = var.vnet_space
+  address_space       = ["10.0.0.0/16"]
 }
 
 resource "azurerm_subnet" "subnet" {
-  name                 = var.subnet1
+  name                 = "network-subnet1"
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet.name
-  address_prefixes     = var.subnet_space1
+  address_prefixes     = ["10.0.0.0/24"]
 }
 
 resource "azurerm_subnet" "subnet2" {
-  name                 = var.subnet2
+  name                 = "network-subnet2"
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet.name
-  address_prefixes     = var.subnet_space2
+  address_prefixes     = ["10.0.1.0/24"]
 }
 
 resource "azurerm_network_security_group" "nsg" {
-  name                = var.nsg1
+  name                = "network-nsg1"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
 
@@ -44,7 +44,7 @@ resource "azurerm_network_security_group" "nsg" {
 }
 
 resource "azurerm_network_security_group" "nsg2" {
-  name                = var.nsg2
+  name                = "network-nsg2"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
 
