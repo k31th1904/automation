@@ -11,21 +11,21 @@ resource "azurerm_virtual_network" "vnet" {
 }
 
 resource "azurerm_subnet" "subnet" {
-  name                 = "network-subnet1"
+  name                 = var.subnet[0]
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet.name
-  address_prefixes     = ["10.0.0.0/24"]
+  address_prefixes     = var.subnet_space.subnet_space1
 }
 
 resource "azurerm_subnet" "subnet2" {
-  name                 = "network-subnet2"
+  name                 = var.subnet[1]
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet.name
-  address_prefixes     = ["10.0.1.0/24"]
+  address_prefixes     = var.subnet_space.subnet_space2
 }
 
 resource "azurerm_network_security_group" "nsg" {
-  name                = "network-nsg1"
+  name                = var.nsg[0]
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
 
@@ -44,7 +44,7 @@ resource "azurerm_network_security_group" "nsg" {
 }
 
 resource "azurerm_network_security_group" "nsg2" {
-  name                = "network-nsg2"
+  name                = var.nsg[1]
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
 
@@ -84,6 +84,5 @@ resource "azurerm_subnet_network_security_group_association" "association2" {
   subnet_id                 = azurerm_subnet.subnet2.id
   network_security_group_id = azurerm_network_security_group.nsg2.id
 }
-
 
 

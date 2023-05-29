@@ -14,30 +14,21 @@ variable "publickey" {
   default = "~/.ssh/id_rsa.pub"
 }
 
-variable "disk_acc_type" {
-  default = "Premium_LRS"
+variable "disk_attributes" {
+  type = map(any)
+  default = {
+    type    = "Premium_LRS"
+    size    = 32
+    caching = "ReadWrite"
+  }
 }
 
-variable "disk_size" {
-  default = 32
-}
-
-variable "disk_caching" {
-  default = "ReadWrite"
-}
-
-variable "OS_publisher" {
-  default = "Canonical"
-}
-
-variable "OS_offer" {
-  default = "UbuntuServer"
-}
-
-variable "OS_sku" {
-  default = "18.04-LTS"
-}
-
-variable "OS_version" {
-  default = "latest"
+variable "OS_attribute" {
+  type = map(any)
+  default = {
+    publisher = "Canonical"
+    offer     = "UbuntuServer"
+    sku       = "18.04-LTS"
+    version   = "latest"
+  }
 }

@@ -29,9 +29,9 @@ resource "azurerm_linux_virtual_machine" "vm" {
 
   os_disk {
     name                 = "${var.vmname}-os-disk"
-    caching              = var.disk_caching
-    storage_account_type = var.disk_acc_type
-    disk_size_gb         = var.disk_size
+    caching              = var.disk_attributes.caching
+    storage_account_type = var.disk_attributes.type
+    disk_size_gb         = var.disk_attributes.size
   }
 
   admin_ssh_key {
@@ -40,9 +40,9 @@ resource "azurerm_linux_virtual_machine" "vm" {
   }
 
   source_image_reference {
-    publisher = var.OS_publisher
-    offer     = var.OS_offer
-    sku       = var.OS_sku
-    version   = var.OS_version
+    publisher = var.OS_attribute.publisher
+    offer     = var.OS_attribute.offer
+    sku       = var.OS_attribute.sku
+    version   = var.OS_attribute.version
   }
 }
