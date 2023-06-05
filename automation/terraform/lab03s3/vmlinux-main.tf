@@ -5,6 +5,8 @@ resource "azurerm_public_ip" "pip" {
   allocation_method   = "Dynamic"
   domain_name_label   = "${var.vmname}-n01595368"
   tags                = local.common_tags
+
+
 }
 
 resource "azurerm_network_interface" "nic" {
@@ -19,6 +21,9 @@ resource "azurerm_network_interface" "nic" {
     public_ip_address_id          = azurerm_public_ip.pip.id
   }
   tags = local.common_tags
+
+
+
 }
 
 resource "azurerm_linux_virtual_machine" "vm" {
@@ -49,4 +54,6 @@ resource "azurerm_linux_virtual_machine" "vm" {
   }
 
   tags = local.common_tags
+
+
 }
