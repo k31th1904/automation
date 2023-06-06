@@ -1,7 +1,3 @@
-variable "win_name" {
-  default = "n01595368-w-vm"
-}
-
 variable "winadminusername" {
   default = "n01595368"
 }
@@ -38,10 +34,10 @@ variable "windows_avs" {
   }
 }
 
-variable "windows_name"{
+variable "windows_name" {
   type = map(any)
   default = {
-    HumberID-w-vm1 = "Standard_B1s"
-    HumberID-w-vm2 = "Standard_B1ms"
+    n01595368-w-vm1 = "Standard_B1s"
+    n01595368-w-vm2 = "Standard_B1ms"
   }
 }
