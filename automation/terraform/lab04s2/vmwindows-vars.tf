@@ -1,11 +1,9 @@
 variable "winadminusername" {
   default = "n01595368"
 }
-
 variable "winpassword" {
   default = "n01595368!"
 }
-
 variable "windisk_attributes" {
   type = map(any)
   default = {
@@ -14,7 +12,6 @@ variable "windisk_attributes" {
     caching = "ReadWrite"
   }
 }
-
 variable "winOS_attribute" {
   type = map(any)
   default = {
@@ -24,7 +21,6 @@ variable "winOS_attribute" {
     version   = "latest"
   }
 }
-
 variable "windows_avs" {
   type = map(any)
   default = {
@@ -33,7 +29,6 @@ variable "windows_avs" {
     platform_fault_domain_count  = "2"
   }
 }
-
 variable "windows_name" {
   type = map(any)
   default = {
