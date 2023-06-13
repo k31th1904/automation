@@ -72,3 +72,4 @@ resource "azurerm_availability_set" "avset" {
   platform_fault_domain_count  = var.linux_avs.platform_fault_domain_count
   tags                         = local.common_tags
 }
+
