@@ -4,7 +4,7 @@ resource "azurerm_public_ip" "pip" {
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   allocation_method   = "Dynamic"
-  domain_name_label   = "${var.vmname}-n01595368-${format("%1d", count.index + 1)}"
+  domain_name_label   = "${var.vmname}-${format("%1d", count.index + 1)}"
   tags                = local.common_tags
 
 
