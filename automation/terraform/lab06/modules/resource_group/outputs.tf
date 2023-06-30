@@ -7,3 +7,12 @@ output "linux_rg_name" {
 output "windows_rg_name" {
   value = azurerm_resource_group.windows_rg.name
 }
+output "net_rg_location" {
+  value = azurerm_resource_group.network_rg.location
+}
+output "linux_rg_location" {
+  value = azurerm_resource_group.linux_rg.location
+}
+output "windows_rg_location" {
+  value = azurerm_resource_group.windows_rg.location
+}
