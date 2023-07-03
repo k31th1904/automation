@@ -30,7 +30,7 @@ resource "azurerm_windows_virtual_machine" "winvm" {
   computer_name         = "${var.vmname}${format("%1d", count.index + 1)}"
   location              = var.location
   resource_group_name   = var.rg_name
-  network_interface_ids = [element(azurerm_network_interface.nic[*].id, count.index + 1)]
+  network_interface_ids = [element(azurerm_network_interface.winnic[*].id, count.index + 1)]
   size                  = var.vmsize
   admin_username        = var.winadminusername
   admin_password        = var.winpassword
@@ -73,9 +73,9 @@ resource "azurerm_availability_set" "winavset" {
 
 resource "azurerm_virtual_machine_extension" "extension1" {
   count = var.nb_count
-  name     = var.extension1.publisher
+  name  = var.extension1.type
 
-  virtual_machine_id         = [element(azurerm_windows_virtual_machine.winvm[*].id, count.index + 1)]
+  virtual_machine_id         = element(azurerm_windows_virtual_machine.winvm[*].id, count.index + 1)
   publisher                  = var.extension1.publisher
   type                       = var.extension1.type
   type_handler_version       = var.extension1.type_handler_version

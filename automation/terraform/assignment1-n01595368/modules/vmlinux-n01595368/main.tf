@@ -64,7 +64,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
 
 resource "azurerm_virtual_machine_extension" "extension1" {
   for_each = var.linux_name
-  name     = var.extension1.publisher
+  name     = var.extension1.type
 
   virtual_machine_id         = azurerm_linux_virtual_machine.vm[each.key].id
   publisher                  = var.extension1.publisher
@@ -80,7 +80,7 @@ resource "azurerm_virtual_machine_extension" "extension1" {
 
 resource "azurerm_virtual_machine_extension" "extension2" {
   for_each = var.linux_name
-  name     = var.extension2.publisher
+  name     = var.extension2.type
 
   virtual_machine_id         = azurerm_linux_virtual_machine.vm[each.key].id
   publisher                  = var.extension2.publisher

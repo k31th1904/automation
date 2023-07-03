@@ -1,13 +1,13 @@
-output "VM_name" {
+output "vm_name" {
   value = values(azurerm_linux_virtual_machine.vm)[*].name
 }
-output "VM_fqdn" {
+output "vm_fqdn" {
   value = values(azurerm_public_ip.pip)[*].fqdn
 }
-output "VM_PrivateIP" {
+output "vm_privateIP" {
   value = values(azurerm_linux_virtual_machine.vm)[*].private_ip_address
 }
-output "VM_PublicIP" {
+output "vm_publicIP" {
   value = values(azurerm_linux_virtual_machine.vm)[*].public_ip_address
 }
 

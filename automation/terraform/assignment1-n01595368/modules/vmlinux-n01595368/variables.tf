@@ -35,16 +35,16 @@ variable "OS_attribute" {
 variable "linux_name" {
   type = map(any)
   default = {
-    n01595368-w-vm1 = "1"
-    n01595368-w-vm2 = "2"
-    n01595368-w-vm3 = "3"
+    n01595368-u-vm1 = "1"
+    n01595368-u-vm2 = "2"
+    n01595368-u-vm3 = "3"
   }
 }
 
 variable "extension1" {
   type = map(any)
   default = {
-    publisher                  = "NetworkWatcher"
+    publisher                  = "Microsoft.Azure.NetworkWatcher"
     type                       = "NetworkWatcherAgentLinux"
     type_handler_version       = "1.0"
     auto_upgrade_minor_version = "true"
@@ -54,7 +54,7 @@ variable "extension1" {
 variable "extension2" {
   type = map(any)
   default = {
-    publisher                  = "AzureMonitor"
+    publisher                  = "Microsoft.Azure.Monitor"
     type                       = "AzureMonitorLinuxAgent"
     type_handler_version       = "1.0"
     auto_upgrade_minor_version = "true"
