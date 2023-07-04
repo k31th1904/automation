@@ -3,8 +3,9 @@ resource "azurerm_public_ip" "pip" {
   name                = "${each.key}-pip"
   resource_group_name = var.rg_name
   location            = var.location
-  allocation_method   = "Dynamic"
+  allocation_method   = var.pip_att.allocation_method
   domain_name_label   = each.key
+  sku                 = var.pip_att.sku
   tags                = local.common_tags
 }
 
@@ -17,7 +18,7 @@ resource "azurerm_network_interface" "nic" {
   ip_configuration {
     name                          = "${each.key}-ipconfig"
     subnet_id                     = var.subnet_id
-    private_ip_address_allocation = "Dynamic"
+    private_ip_address_allocation = var.private_ip_address_allocation
     public_ip_address_id          = azurerm_public_ip.pip[each.key].id
   }
   depends_on = [azurerm_public_ip.pip]

@@ -24,7 +24,6 @@ module "common-n01595368" {
   vault_name     = "recoveryvault5368"
 }
 
-
 module "vmlinux-n01595368" {
   source                   = "./modules/vmlinux-n01595368"
   location                 = module.rgroup-n01595368.rg_location
@@ -52,4 +51,23 @@ module "datadisk-n01595368" {
   linux_vm_id     = module.vmlinux-n01595368.linux_vm_id
   windows_vm_name = module.vmwindows-n01595368.windows_vm_name
   windows_vm_id   = module.vmwindows-n01595368.windows_vm_id
+}
+
+module "loadbalancer-n01595368" {
+  source    = "./modules/loadbalancer-n01595368"
+  location  = module.rgroup-n01595368.rg_location
+  rg_name   = module.rgroup-n01595368.rg_name
+  pip_name  = "LoadBalancerPIP5368"
+  lb_name   = "LinuxLoadBalancer5368"
+  pool_name = "LinuxPool5368"
+  nic_ids   = module.vmlinux-n01595368.linux_vm_nic_id
+  ipconfigs = module.vmlinux-n01595368.linux_vm_ipconfig_name
+}
+
+module "database-n01595368" {
+  source        = "./modules/database-n01595368"
+  location      = module.rgroup-n01595368.rg_location
+  rg_name       = module.rgroup-n01595368.rg_name
+  dbserver_name = "psqlserver5368"
+  db_name       = "psqldb5368"
 }

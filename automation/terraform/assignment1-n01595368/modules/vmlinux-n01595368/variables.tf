@@ -2,6 +2,16 @@ variable "rg_name" {}
 variable "location" {}
 variable "subnet_id" {}
 variable "storage_account_endpoint" {}
+variable "pip_att" {
+  type = map(any)
+  default = {
+    sku               = "Standard"
+    allocation_method = "Dynamic"
+  }
+}
+variable "private_ip_address_allocation" {
+  default = "Dynamic"
+}
 variable "vmsize" {
   default = "Standard_B1ms"
 }
@@ -61,12 +71,3 @@ variable "extension2" {
   }
 }
 
-locals {
-  common_tags = {
-    Assignment     = "CCGC 5502 Automation Assignment"
-    Name           = "hooyin.kwok"
-    ExpirationDate = "2024-12-31"
-    Environment    = "Learning"
-    Category       = "Linux VM"
-  }
-}

@@ -54,9 +54,19 @@ output "windows_vm_publicIP" {
 output "windows_avset" {
   value = module.vmwindows-n01595368.windows_avset
 }
-output "linux_disks_name" {
+output "linux_datadisks_name" {
   value = module.datadisk-n01595368.linuxdisks_name
 }
-output "windows_disks_name" {
+output "windows_datadisks_name" {
   value = module.datadisk-n01595368.windisks_name
+}
+output "loadbalancer_name" {
+  value = module.loadbalancer-n01595368.lb_name
+}
+output "dbserver_name" {
+  value     = module.database-n01595368.dbserver_name
+  sensitive = true
+}
+output "db_name" {
+  value = module.database-n01595368.db_name
 }

@@ -3,8 +3,9 @@ resource "azurerm_public_ip" "winpip" {
   name                = "${var.vmname}-pip-${format("%1d", count.index + 1)}"
   resource_group_name = var.rg_name
   location            = var.location
-  allocation_method   = "Dynamic"
+  allocation_method   = var.winpip_att.allocation_method
   domain_name_label   = "${var.vmname}${format("%1d", count.index + 1)}"
+  sku                 = var.winpip_att.sku
   tags                = local.common_tags
 }
 
@@ -17,7 +18,7 @@ resource "azurerm_network_interface" "winnic" {
   ip_configuration {
     name                          = "${var.vmname}-ipconfig-${format("%1d", count.index + 1)}"
     subnet_id                     = var.subnet_id
-    private_ip_address_allocation = "Dynamic"
+    private_ip_address_allocation = var.private_ip_address_allocation
     public_ip_address_id          = element(azurerm_public_ip.winpip[*].id, count.index + 1)
   }
   depends_on = [azurerm_public_ip.winpip]

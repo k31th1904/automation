@@ -4,7 +4,11 @@ resource "null_resource" "linux_provisioner" {
 
   provisioner "remote-exec" {
     inline = [
-      "/bin/hostname"
+      "sudo yum install -y epel-release", # Install EPEL package for CentOS
+      "sudo yum install -y nginx",        # Install nginx
+      "sudo systemctl start nginx",       # Start nginx service
+      "sudo systemctl enable nginx",      # Enable nginx to start at boot
+      "/bin/hostname"                     # Get hostname for the VM
     ]
 
     connection {
