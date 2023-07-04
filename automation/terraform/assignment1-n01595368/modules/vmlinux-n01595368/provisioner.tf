@@ -4,11 +4,23 @@ resource "null_resource" "linux_provisioner" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo yum install -y epel-release", # Install EPEL package for CentOS
-      "sudo yum install -y nginx",        # Install nginx
-      "sudo systemctl start nginx",       # Start nginx service
-      "sudo systemctl enable nginx",      # Enable nginx to start at boot
-      "/bin/hostname"                     # Get hostname for the VM
+      # Install nginx here to test load balancing via http 80
+      "sudo yum install -y nginx",   # Install nginx
+      "sudo systemctl start nginx",  # Start nginx service
+      "sudo systemctl enable nginx", # Enable nginx to start at boot
+    ]
+
+    connection {
+      type        = "ssh"
+      user        = var.adminusername
+      private_key = file(var.privatekey)
+      host        = azurerm_public_ip.pip[each.key].fqdn
+    }
+
+  }
+  provisioner "remote-exec" {
+    inline = [
+      "/bin/hostname" # Get hostname for the VM
     ]
 
     connection {
