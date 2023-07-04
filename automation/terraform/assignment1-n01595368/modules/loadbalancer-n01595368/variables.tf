@@ -1,8 +1,12 @@
 variable "rg_name" {}
 variable "location" {}
 variable "pip_name" {}
-variable "lbpip_sku" {
-  default = "Standard"
+variable "lbpip_att" {
+  type = map(any)
+  default = {
+    sku               = "Standard"
+    allocation_method = "Static"
+  }
 }
 variable "lb_name" {}
 variable "pool_name" {}

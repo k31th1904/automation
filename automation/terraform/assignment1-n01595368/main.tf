@@ -57,7 +57,7 @@ module "loadbalancer-n01595368" {
   source    = "./modules/loadbalancer-n01595368"
   location  = module.rgroup-n01595368.rg_location
   rg_name   = module.rgroup-n01595368.rg_name
-  pip_name  = "LoadBalancerPIP5368"
+  pip_name  = "linuxlb-5368-pip"
   lb_name   = "LinuxLoadBalancer5368"
   pool_name = "LinuxPool5368"
   nic_ids   = module.vmlinux-n01595368.linux_vm_nic_id

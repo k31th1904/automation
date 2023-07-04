@@ -2,8 +2,8 @@ resource "azurerm_public_ip" "lbpip" {
   name                = var.pip_name
   location            = var.location
   resource_group_name = var.rg_name
-  sku                 = var.lbpip_sku
-  allocation_method   = "Static"
+  sku                 = var.lbpip_att.sku
+  allocation_method   = var.lbpip_att.allocation_method
   tags                = local.common_tags
 }
 
@@ -39,6 +39,8 @@ resource "azurerm_lb_rule" "lbrule" {
   frontend_port                  = each.value.frontend_port
   backend_port                   = each.value.backend_port
   frontend_ip_configuration_name = azurerm_lb.linuxlb.frontend_ip_configuration[0].name
+  backend_address_pool_ids       = [azurerm_lb_backend_address_pool.lbpool.id]
+  probe_id                       = azurerm_lb_probe.lbproble[each.key].id
 }
 
 resource "azurerm_lb_probe" "lbproble" {

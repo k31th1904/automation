@@ -6,7 +6,7 @@ variable "pip_att" {
   type = map(any)
   default = {
     sku               = "Standard"
-    allocation_method = "Dynamic"
+    allocation_method = "Static"
   }
 }
 variable "private_ip_address_allocation" {
