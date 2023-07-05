@@ -6,7 +6,7 @@ output "rg_name" {
 output "vnet_name" {
   value = module.network-n01595368.vnet1_name
 }
-output "vnet1_space" {
+output "vnet_space" {
   value = module.network-n01595368.vnet1_space[0]
 }
 output "subnet1_name" {
