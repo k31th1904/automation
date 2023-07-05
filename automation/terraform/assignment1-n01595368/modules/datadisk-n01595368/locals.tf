@@ -4,6 +4,6 @@ locals {
     Name           = "hooyin.kwok"
     ExpirationDate = "2024-12-31"
     Environment    = "Learning"
-    Category       = "DataBase"
+    Category       = "DataDisk"
   }
 }

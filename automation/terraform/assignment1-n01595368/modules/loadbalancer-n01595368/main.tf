@@ -4,6 +4,7 @@ resource "azurerm_public_ip" "lbpip" {
   resource_group_name = var.rg_name
   sku                 = var.lbpip_att.sku
   allocation_method   = var.lbpip_att.allocation_method
+  domain_name_label   = var.pip_name
   tags                = local.common_tags
 }
 
