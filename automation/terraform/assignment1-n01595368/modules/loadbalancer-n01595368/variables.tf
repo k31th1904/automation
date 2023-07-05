@@ -15,3 +15,6 @@ variable "ipconfigs" {}
 variable "lb_sku" {
   default = "Standard"
 }
+
+variable "diagnostic_name" {}
+variable "workspace_id" {}

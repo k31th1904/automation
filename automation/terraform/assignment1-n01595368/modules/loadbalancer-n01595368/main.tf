@@ -49,3 +49,17 @@ resource "azurerm_lb_probe" "lbproble" {
   name            = each.value.name
   port            = each.value.port
 }
+
+resource "azurerm_monitor_diagnostic_setting" "lbdiagnostic" {
+  name                       = var.diagnostic_name
+  target_resource_id         = azurerm_lb.linuxlb.id
+  log_analytics_workspace_id = var.workspace_id
+
+  metric {
+    category = "AllMetrics"
+
+    retention_policy {
+      enabled = false
+    }
+  }
+}
