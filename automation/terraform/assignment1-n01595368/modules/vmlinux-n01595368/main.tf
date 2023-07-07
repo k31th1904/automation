@@ -35,9 +35,6 @@ resource "azurerm_linux_virtual_machine" "vm" {
   size                  = var.vmsize
   admin_username        = var.adminusername
 
-  #availability_set_id   = azurerm_availability_set.avset.id
-  #depends_on            = [azurerm_availability_set.avset]
-
   os_disk {
     name                 = "${each.key}-os-disk"
     caching              = var.disk_attributes.caching
