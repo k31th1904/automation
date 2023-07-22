@@ -3,7 +3,7 @@ resource "azurerm_virtual_network" "vnet1" {
   location            = var.location
   resource_group_name = var.rg_name
   address_space       = var.vnet1_space
-  tags                = local.common_tags
+  tags                = var.common_tags
 
 }
 
@@ -18,7 +18,7 @@ resource "azurerm_network_security_group" "nsg1" {
   name                = var.nsg1
   location            = azurerm_virtual_network.vnet1.location
   resource_group_name = azurerm_virtual_network.vnet1.resource_group_name
-  tags                = local.common_tags
+  tags                = var.common_tags
 
 }
 

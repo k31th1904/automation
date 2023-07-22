@@ -27,3 +27,13 @@ variable "vault_att" {
     sku = "Standard"
   }
 }
+
+variable "common_tags" {
+  default = {
+    Assignment     = ""
+    Name           = ""
+    ExpirationDate = ""
+    Environment    = ""
+    Category       = ""
+  }
+}

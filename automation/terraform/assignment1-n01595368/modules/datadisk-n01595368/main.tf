@@ -6,7 +6,7 @@ resource "azurerm_managed_disk" "linuxdisk" {
   storage_account_type = var.linuxdisk_attributes.storage_account_type
   disk_size_gb         = var.linuxdisk_attributes.disk_size_gb
   create_option        = var.linuxdisk_attributes.create_option
-  tags                 = local.common_tags
+  tags                 = var.common_tags
 }
 
 resource "azurerm_virtual_machine_data_disk_attachment" "linuxdisk_attach" {
@@ -26,7 +26,7 @@ resource "azurerm_managed_disk" "windisk" {
   storage_account_type = var.windisk_attributes.storage_account_type
   disk_size_gb         = var.windisk_attributes.disk_size_gb
   create_option        = var.windisk_attributes.create_option
-  tags                 = local.common_tags
+  tags                 = var.common_tags
 }
 
 resource "azurerm_virtual_machine_data_disk_attachment" "windisk_attach" {

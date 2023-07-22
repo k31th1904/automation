@@ -71,3 +71,13 @@ variable "extension2" {
   }
 }
 
+
+variable "common_tags" {
+  default = {
+    Assignment     = ""
+    Name           = ""
+    ExpirationDate = ""
+    Environment    = ""
+    Category       = ""
+  }
+}

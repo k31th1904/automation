@@ -23,3 +23,13 @@ variable "db_attributes" {
     collation = "English_United States.1252"
   }
 }
+
+variable "common_tags" {
+  default = {
+    Assignment     = ""
+    Name           = ""
+    ExpirationDate = ""
+    Environment    = ""
+    Category       = ""
+  }
+}

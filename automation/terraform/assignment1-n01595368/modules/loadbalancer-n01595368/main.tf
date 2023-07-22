@@ -5,7 +5,7 @@ resource "azurerm_public_ip" "lbpip" {
   sku                 = var.lbpip_att.sku
   allocation_method   = var.lbpip_att.allocation_method
   domain_name_label   = var.pip_name
-  tags                = local.common_tags
+  tags                = var.common_tags
 }
 
 resource "azurerm_lb" "linuxlb" {
@@ -14,10 +14,11 @@ resource "azurerm_lb" "linuxlb" {
   resource_group_name = var.rg_name
   sku                 = var.lb_sku
   frontend_ip_configuration {
-    name                 = "PublicIP"
+    # name can be parametized
+    name                 = "${var.lb_name}-PublicIP"
     public_ip_address_id = azurerm_public_ip.lbpip.id
   }
-  tags = local.common_tags
+  tags = var.common_tags
 }
 
 resource "azurerm_lb_backend_address_pool" "lbpool" {

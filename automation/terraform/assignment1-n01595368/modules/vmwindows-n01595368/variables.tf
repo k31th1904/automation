@@ -57,3 +57,14 @@ variable "extension1" {
     auto_upgrade_minor_version = "true"
   }
 }
+
+
+variable "common_tags" {
+  default = {
+    Assignment     = ""
+    Name           = ""
+    ExpirationDate = ""
+    Environment    = ""
+    Category       = ""
+  }
+}

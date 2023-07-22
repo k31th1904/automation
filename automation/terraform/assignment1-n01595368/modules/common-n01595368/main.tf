@@ -4,7 +4,7 @@ resource "azurerm_storage_account" "storage" {
   location                 = var.location
   account_tier             = var.storage_att.tier
   account_replication_type = var.storage_att.replication
-  tags                     = local.common_tags
+  tags                     = var.common_tags
 }
 
 resource "azurerm_log_analytics_workspace" "workspace" {
@@ -13,7 +13,7 @@ resource "azurerm_log_analytics_workspace" "workspace" {
   resource_group_name = var.rg_name
   sku                 = var.workspace_att.sku
   retention_in_days   = var.workspace_att.retention
-  tags                = local.common_tags
+  tags                = var.common_tags
 }
 
 resource "azurerm_recovery_services_vault" "vault" {
@@ -21,5 +21,5 @@ resource "azurerm_recovery_services_vault" "vault" {
   location            = var.location
   resource_group_name = var.rg_name
   sku                 = var.vault_att.sku
-  tags                = local.common_tags
+  tags                = var.common_tags
 }

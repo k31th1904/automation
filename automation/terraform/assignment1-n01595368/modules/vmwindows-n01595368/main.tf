@@ -6,7 +6,7 @@ resource "azurerm_public_ip" "winpip" {
   allocation_method   = var.winpip_att.allocation_method
   domain_name_label   = "${var.vmname}${format("%1d", count.index + 1)}"
   sku                 = var.winpip_att.sku
-  tags                = local.common_tags
+  tags                = var.common_tags
 }
 
 resource "azurerm_network_interface" "winnic" {
@@ -22,7 +22,7 @@ resource "azurerm_network_interface" "winnic" {
     public_ip_address_id          = element(azurerm_public_ip.winpip[*].id, count.index + 1)
   }
   depends_on = [azurerm_public_ip.winpip]
-  tags       = local.common_tags
+  tags       = var.common_tags
 }
 
 resource "azurerm_windows_virtual_machine" "winvm" {
@@ -60,7 +60,7 @@ resource "azurerm_windows_virtual_machine" "winvm" {
   boot_diagnostics {
     storage_account_uri = var.storage_account_endpoint
   }
-  tags = local.common_tags
+  tags = var.common_tags
 }
 
 resource "azurerm_availability_set" "winavset" {
@@ -69,7 +69,7 @@ resource "azurerm_availability_set" "winavset" {
   resource_group_name          = var.rg_name
   platform_update_domain_count = var.windows_avs_att.platform_update_domain_count
   platform_fault_domain_count  = var.windows_avs_att.platform_fault_domain_count
-  tags                         = local.common_tags
+  tags                         = var.common_tags
 }
 
 resource "azurerm_virtual_machine_extension" "extension1" {
@@ -84,5 +84,5 @@ resource "azurerm_virtual_machine_extension" "extension1" {
   depends_on = [
     azurerm_windows_virtual_machine.winvm,
   ]
-  tags = local.common_tags
+  tags = var.common_tags
 }

@@ -22,3 +22,13 @@ variable "windisk_attributes" {
     caching              = "ReadWrite"
   }
 }
+
+variable "common_tags" {
+  default = {
+    Assignment     = ""
+    Name           = ""
+    ExpirationDate = ""
+    Environment    = ""
+    Category       = ""
+  }
+}

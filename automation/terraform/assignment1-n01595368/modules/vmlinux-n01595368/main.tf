@@ -6,7 +6,7 @@ resource "azurerm_public_ip" "pip" {
   allocation_method   = var.pip_att.allocation_method
   domain_name_label   = each.key
   sku                 = var.pip_att.sku
-  tags                = local.common_tags
+  tags                = var.common_tags
 }
 
 resource "azurerm_network_interface" "nic" {
@@ -22,7 +22,7 @@ resource "azurerm_network_interface" "nic" {
     public_ip_address_id          = azurerm_public_ip.pip[each.key].id
   }
   depends_on = [azurerm_public_ip.pip]
-  tags       = local.common_tags
+  tags       = var.common_tags
 }
 
 resource "azurerm_linux_virtual_machine" "vm" {
@@ -57,7 +57,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
   boot_diagnostics {
     storage_account_uri = var.storage_account_endpoint
   }
-  tags = local.common_tags
+  tags = var.common_tags
 }
 
 resource "azurerm_virtual_machine_extension" "extension1" {
@@ -73,7 +73,7 @@ resource "azurerm_virtual_machine_extension" "extension1" {
     azurerm_linux_virtual_machine.vm,
     null_resource.linux_provisioner,
   ]
-  tags = local.common_tags
+  tags = var.common_tags
 }
 
 resource "azurerm_virtual_machine_extension" "extension2" {
@@ -89,7 +89,7 @@ resource "azurerm_virtual_machine_extension" "extension2" {
     azurerm_linux_virtual_machine.vm,
     null_resource.linux_provisioner,
   ]
-  tags = local.common_tags
+  tags = var.common_tags
 }
 
 

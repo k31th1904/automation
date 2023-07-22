@@ -18,3 +18,14 @@ variable "lb_sku" {
 
 variable "diagnostic_name" {}
 variable "workspace_id" {}
+
+
+variable "common_tags" {
+  default = {
+    Assignment     = ""
+    Name           = ""
+    ExpirationDate = ""
+    Environment    = ""
+    Category       = ""
+  }
+}
