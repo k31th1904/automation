@@ -1,0 +1,22 @@
+---
+- name: This is a the first play with one task
+  hosts: linux[0]
+  tasks:
+    - name: Copy file
+      copy: 
+        src: /etc/issue
+        dest: /etc/issue
+        owner: user4000
+        group: cloudadmins
+        mode: '0444'
+
+
+
+- name: This is a the second play with one task
+  hosts: linux
+  tasks:
+    - name: Change timezone
+      timezone: 
+         name: "America/Edmonton"
+
+...

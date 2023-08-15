@@ -1,0 +1,10 @@
+---
+- name: This is a playbook with host variables
+  hosts: linux
+  
+  tasks:
+    - name: Install Software Package
+      yum:
+       name: "{{ package }}"
+       state: present
+...

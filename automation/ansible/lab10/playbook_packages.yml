@@ -1,0 +1,14 @@
+---
+- name: This play will gather and display packages
+  hosts: linux[0]
+  gather_facts: true
+
+  tasks:
+    - name: Gather package info
+      package_facts:
+        manager: auto
+
+    - name: Display setup package
+      debug:
+        msg: The package version is {{ packages['setup'][0]['version'] }}
+...

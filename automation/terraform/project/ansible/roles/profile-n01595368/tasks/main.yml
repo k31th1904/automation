@@ -1,0 +1,25 @@
+---
+# tasks file for profile-n01595368
+- block:
+
+  - name: Adding text to file1
+    blockinfile:
+      path: "{{ file1['path'] }}"
+      insertafter: EOF
+      backup: yes
+      state: present
+      block: |
+        {{ file1['block'] }}
+    
+  always:
+  # fixed action to cat info from file, so hardcode it
+  - name: cat verification
+    command: "cat {{ file1['path'] }} "
+    register: cat_result
+
+  - name: file info debug
+    debug:
+      msg: 
+      - "{{ cat_result.stdout_lines }}"
+
+      

@@ -1,0 +1,7 @@
+---
+# vars file for profile-n01595368
+file1:
+  path: /etc/profile
+  block: |
+    #Test block added by Ansibe......n01595368
+    export TMOUT=1500

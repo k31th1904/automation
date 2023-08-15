@@ -1,0 +1,34 @@
+---
+- name: This is a the first play with one task
+  hosts: linux[0]
+  tasks:
+    - name: Copy file
+      copy: 
+        src: /etc/issue
+        dest: /etc/issue
+        owner: user4000
+        group: cloudadmins
+        mode: '0444'
+
+- name: This is a the second play with one task
+  hosts: linux
+  tasks:
+    - name: Change timezone
+      timezone: 
+         name: "America/Edmonton"
+
+- name: This is a the third play with two task
+  hosts: linux[1]
+  tasks:
+    - name: Create Group
+      group:
+         name: "devops"
+         state: present
+    - name: Create User
+      user: 
+         name: "devops1"
+         uid: 2500
+         append: true
+         groups: "devops"
+         state: present
+...

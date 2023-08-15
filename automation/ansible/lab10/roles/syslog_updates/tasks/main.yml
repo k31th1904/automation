@@ -1,0 +1,27 @@
+---
+# tasks file for timezone
+- block:
+  - name: Insert text to file
+    blockinfile:
+      path: "{{ task_add['path'] }}"
+      insertafter: EOF
+      backup: yes
+      state: present
+      block: |
+        {{ task_add['block'] }}
+
+  - name: Set Ownership to directory recursively
+    file:
+      path: "{{ task_ownership['path'] }}"
+      owner: "{{ task_ownership['owner'] }}"
+      group: "{{ task_ownership['group'] }}"
+      mode: "{{ task_ownership['mode'] }}"
+      recurse: true
+
+  - name: Set permission to directory
+    file:
+      path: "{{ task_permission['path'] }}"
+      mode: "{{ task_permission['mode'] }}"
+      recurse: false
+
+  notify: service_restart

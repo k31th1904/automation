@@ -1,0 +1,7 @@
+---
+# handlers file for patching
+- name: service_restart
+  systemd:
+    name: "{{ service }}"
+    state: restarted
+  

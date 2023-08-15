@@ -1,0 +1,60 @@
+---
+# tasks file for datadisk-n01595368
+- block:
+
+  - name: Parition for datadisk
+    parted:
+      device: "/dev/{{ item.device }}"
+      number: "{{ item.number }}"
+      fs_type: "{{ item.fs_type }}"
+      part_start: "{{ item.part_start }}"
+      part_end: "{{ item.part_end }}"
+      state: present
+    loop: "{{ diskatt }}"
+
+  - name: Create Filesystem
+    filesystem:
+      fstype: "{{ item.fstype }}"
+      dev: "{{ item.src}}"
+    loop: "{{ mountatt }}"
+
+  - name: Mount datadisk including fstab configuration
+    mount:
+      path: "{{ item.path }}"
+      src: "{{ item.src }}"
+      fstype: "{{ item.fstype }}"
+      state: mounted
+      backup: true
+    loop: "{{ mountatt }}"
+
+  rescue:
+  - name: Partition should be all cleaned and reset if failure
+    parted:
+      device: "/dev/{{ item.device }}"
+      number: "{{ item.number }}"
+      fs_type: "{{ item.fs_type }}"
+      part_start: "{{ item.part_start }}"
+      part_end: "{{ item.part_end }}"
+      state: absent
+    loop: "{{ diskatt }}"    
+
+  always:
+  # fixed action to get info for disk operation, so hardcode it
+  - name: fstab verification
+    command: cat /etc/fstab
+    register: fstab_result
+  - name: device verification
+    command: df -Th
+    register: df_result
+  - name: block verification
+    command: lsblk
+    register: blk_result
+    
+  - name: Disk info debug
+    debug:
+      msg: 
+      - "{{ fstab_result.stdout_lines }}"
+      - "{{ df_result.stdout_lines }}"
+      - "{{ blk_result.stdout_lines }}"
+    #  - "{{ ansible_devices }}"
+    #  - "{{ ansible_mounts }}"

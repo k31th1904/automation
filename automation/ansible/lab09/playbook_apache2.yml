@@ -1,0 +1,33 @@
+---
+- name: This is a playbook to install and configure Apache and mariadb
+  hosts: linux[1]
+  gather_facts: true
+  vars:
+    packages:
+      - httpd
+      - mariadb-server
+
+  tasks:
+    - name: Install Apache and MariaDB
+      yum:
+        name: "{{ packages }}"
+        state: present
+      notify: 
+        - configure_httpd  
+        - configure_mariadb
+
+  handlers:
+    - name: configure_httpd
+      systemd:
+        name: httpd
+        state: started
+        enabled: true
+    - name: configure_mariadb
+      systemd:
+        name: mariadb
+        state: started
+        enabled: true
+...
+
+
+

@@ -1,0 +1,21 @@
+---
+- name: This is a playbook with host variables
+  hosts: n01595368-c-vm1.canadacentral.cloudapp.azure.com
+  
+  tasks:
+    - name: Install Software Package
+      yum:
+       name: "{{ packages }}"
+       state: present
+      register: installation_result
+    - name: Display the entire task output
+      debug:
+        var: installation_result
+    - name: Display the name of the packages
+      debug:
+        msg: "The name of packages are {{ installation_result['results'] }}"
+    - name: Display the name of the packages through loop
+      debug:
+        msg: "The name of packages are {{ item }}"
+      loop: "{{ installation_result.results }}"
+...

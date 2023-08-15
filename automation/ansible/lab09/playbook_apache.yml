@@ -1,0 +1,32 @@
+---
+- name: This is a playbook to install and configure Apache
+  hosts: linux[0]
+  gather_facts: true
+
+  tasks:
+    - name: Install Apache
+      yum:
+        name: httpd
+        state: present
+      notify: 
+        - configure_httpd  
+      # it run after all plays are done, including blockinfile
+
+    - blockinfile: 
+       path: /var/www/html/index.html
+       insertafter: EOF
+       backup: yes
+       state: present
+       create: yes
+       block: |
+        {{ansible_hostname}}
+
+  handlers:
+    - name: configure_httpd
+      systemd:
+        name: httpd
+        state: started
+        enabled: true
+...
+
+

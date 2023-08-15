@@ -1,0 +1,16 @@
+---
+- name: This is a playbook with conditional task
+  hosts: linux
+  gather_facts: true
+
+  tasks:
+    - blockinfile: 
+       path: /tmp/conditional
+       insertafter: EOF
+       backup: yes
+       state: present
+       create: yes
+       block: |
+        This is my CentOS VM
+      when: ansible_distribution_version == "8.2" and ansible_kernel == "4.18.0-193.28.1.el8_2.x86_64"
+...

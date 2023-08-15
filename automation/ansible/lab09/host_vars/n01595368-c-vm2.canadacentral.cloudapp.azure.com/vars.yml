@@ -1,0 +1,7 @@
+---
+packageslist: 
+  - mariadb
+  - dracut
+  - snappy
+
+...

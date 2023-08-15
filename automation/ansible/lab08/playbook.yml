@@ -1,0 +1,11 @@
+---
+- name: This is a playbook with one play and one tasks
+  hosts: linux
+
+  tasks:
+   - name: Install the cifsutils
+     yum: 
+       name:
+        - cifs-utils
+       state: latest
+...

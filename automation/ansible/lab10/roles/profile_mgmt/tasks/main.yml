@@ -1,0 +1,36 @@
+---
+# tasks file for profile_mgmt
+- block:
+
+  - name: Adding text to file
+    blockinfile:
+      path: "{{ task_add['path'] }}"
+      insertafter: EOF
+      backup: yes
+      state: present
+      block: |
+        {{ task_add['block'] }}
+
+  - name: Replace certain line in the file
+    lineinfile:
+      path: "{{ task_replace['path']}}"
+      regex: "{{ task_replace['regex']}}"
+      line: "{{ task_replace['line']}}"
+      state: present
+
+  rescue:
+  - name: This task will be executed to modify file if failure occurs
+    blockinfile:
+      path: "{{ task_rescue['path'] }}"
+      insertafter: EOF   
+      backup: yes
+      state: present
+      block: |
+        {{ task_rescue['block'] }}
+    
+  always:
+  - name: This message task run anyway
+    debug:
+      msg: "{{ task_always['msg'] }}"
+
+      

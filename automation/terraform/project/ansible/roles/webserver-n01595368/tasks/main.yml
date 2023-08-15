@@ -1,0 +1,48 @@
+---
+# tasks file for webserver-n01595368
+- block:
+
+  - name: Install Apache
+    yum:
+      name: "httpd"
+      state: present
+    notify:
+      - httpd_restart
+    when: ansible_distribution == "CentOS"
+  
+  - name: Create index files
+    file:
+      path: "roles/webserver-n01595368/files/{{ ansible_facts['hostname'] }}.html"
+      state: touch
+    delegate_to: localhost
+    become: false
+
+  - name: Add text to index files
+    lineinfile:
+      path: "roles/webserver-n01595368/files/{{ ansible_facts['hostname'] }}.html"
+      insertafter: EOF
+      state: present 
+      line: "This is host - {{ ansible_facts['hostname'] }}"
+
+    delegate_to: localhost
+    become: false
+
+  - name: Copy index files to managed nodes
+    copy:
+      src: "roles/webserver-n01595368/files/{{ ansible_facts['hostname'] }}.html"
+      dest: "{{ copy['dest'] }}"
+      mode: "{{ copy['mode'] }}"
+
+  always:
+  # fixed action to cat info from file, so hardcode it
+  - name: index verification
+    command: "cat {{ copy['dest'] }}"
+    register: index_result
+
+  - name: index debug
+    debug:
+      msg: 
+      - "{{ index_result.stdout_lines }}"
+
+
+      

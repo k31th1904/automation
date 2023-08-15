@@ -1,0 +1,13 @@
+---
+- name: This is a playbook with conditional task 1
+  hosts: linux[0]
+  vars:
+    package: nmap
+
+  tasks:
+    - name: Install Software Package {{ package }}
+      yum:
+       name: "{{ package }}"
+       state: present
+      when: package is defined
+...

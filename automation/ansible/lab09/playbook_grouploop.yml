@@ -1,0 +1,12 @@
+---
+- name: This is a playbook with group variables
+  hosts: linux
+  
+  tasks:
+    - name: Create User with loop in group variables
+      user:
+       name: "{{ item.name }}"
+       uid: "{{ item.uid }}"
+       state: present
+      loop: "{{ userlist }}"
+...

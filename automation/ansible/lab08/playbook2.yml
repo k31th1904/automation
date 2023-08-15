@@ -1,0 +1,30 @@
+---
+- name: This is a playbook with one play and two tasks
+  hosts: linux
+
+  tasks:
+    - name: This is task 1
+      user: 
+         name: "user4000"
+         uid: 5000
+         state: present
+
+    - name: This is task 2
+      group:
+         name: "cloudadmins"
+         gid: 3000
+         state: present
+
+    - name: This is task 3
+      yum:
+       name:
+        - httpd #apache in CentOS is httpd
+        - nmap
+       state: latest
+
+    - name: This is task 4
+      systemd:
+       name: httpd
+       state: started
+       enabled: true
+...

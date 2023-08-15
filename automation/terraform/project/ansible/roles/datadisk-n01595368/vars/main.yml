@@ -1,0 +1,8 @@
+---
+# vars file for datadisk-n01595368
+diskatt:
+  - { device: sdc, number: 1, fs_type: xfs, part_start: 0%, part_end: 4GiB }
+  - { device: sdc, number: 2, fs_type: ext4, part_start: 4GiB, part_end: 9GiB }
+mountatt:
+  - { path: /part1, src: /dev/sdc1, fstype: xfs }
+  - { path: /part2, src: /dev/sdc2, fstype: ext4 }

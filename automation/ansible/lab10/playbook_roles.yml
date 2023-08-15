@@ -1,0 +1,20 @@
+---
+- name: This is the main playbook with 3 roles
+  hosts: linux
+  
+  pre_tasks:
+    - debug:
+        msg: "Main book begins"
+  
+  roles: 
+    - package_remove
+    - package_install
+    - patching
+    - profile_mgmt
+    - timezone
+    - syslog_updates
+
+  post_tasks:
+    - debug:
+        msg: "Main book ends"
+

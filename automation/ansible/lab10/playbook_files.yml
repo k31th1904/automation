@@ -1,0 +1,35 @@
+---
+- name: This is a playbook for files and folders management
+  hosts: linux[0]
+  
+  tasks:
+    - name: Create a file
+      file:
+        path: locfile
+        state: touch
+      delegate_to: localhost
+    - name: Copy the file
+      copy:
+        src: locfile
+        dest: /tmp/
+        owner: n01595368
+        group: root
+        mode: 0444
+    - name: Change SELinux file type for the file
+      file:
+        path: /tmp/locfile
+        setype: etc_t
+    - name: Get status of the file
+      stat:
+        path: /tmp/locfile
+      register: file_stat
+    - name: Display file status
+      debug:
+        var: file_stat
+    - name: Create an empty file
+      file:
+        path: ~/emptyfile
+        state: touch
+      become: false
+
+...

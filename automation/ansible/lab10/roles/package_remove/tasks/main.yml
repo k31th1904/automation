@@ -1,0 +1,7 @@
+---
+# tasks file for package_remove
+- name: Remove packages for particular OS
+  yum:
+    name: "{{ packages }}"
+    state: absent
+  when: (ansible_distribution == "CentOS") or (ansible_distribution == "RedHat")

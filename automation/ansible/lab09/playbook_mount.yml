@@ -1,0 +1,13 @@
+---
+- name: This is a playbook with mount
+  hosts: linux[1]
+  gather_facts: true
+  
+  tasks:
+    - name: Install Software Packages
+      yum:
+       name: "{{ packageslist }}"
+       state: absent
+      loop: "{{ ansible_mounts }}"
+      when: item.mount == "/" and item.size_available > 2147483648
+...

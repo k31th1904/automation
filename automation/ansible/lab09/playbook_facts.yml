@@ -1,0 +1,16 @@
+---
+- name: This play will gather and display facts
+  hosts: windows[0]
+  gather_facts: true
+
+  tasks:
+    - name: Display entire node facts
+      debug:
+       var: ansible_facts
+    - name: Display only FQDN, ipv4 & shortname
+      debug:
+        msg: The fqdn is {{ ansible_facts['fqdn']}} with IPv4
+          {{ ansible_facts['interfaces'][0]['ipv4']['address']}} and shortname
+          {{ ansible_facts['hostname']}}
+       
+...

@@ -1,0 +1,55 @@
+---
+# tasks file for user-n01595368
+- block:
+
+  - name: Create group
+    group:
+      name: "{{ groupname }}"
+      state: present
+
+  - name: Create User
+    user:
+      name: "{{ item.name }}"
+      groups: "{{ item.groups }}"
+      append: true
+      state: present
+      #remove: true
+    loop: "{{ userlist }}"
+
+  - name: Create SSH keys
+  # SSH keys are generated from automation control server and distributed to managed nodes
+    openssh_keypair:
+      path: "~/.ssh/{{ item.name }}_id_rsa"
+      comment: "key generated for user - {{ item.name }}"  
+    loop: "{{ userlist }}"
+    become: false
+    delegate_to: localhost
+     
+  - name: Distribute SSH keys
+    authorized_key:
+      user: "{{ item[0].name }}"
+      # outer loop
+      state: present
+      key: "{{ lookup('file','~/.ssh/{{ item[1].name }}_id_rsa.pub')}}"  
+      # inner loop
+    loop: "{{ userlist | product(userlist) | list }}"
+    # nested loop is required as each public key need to be distriubted to each user profile
+
+
+  always:
+  # fixed action to cat user info from file, so hardcode it
+  - name: user verification
+    command: cat /etc/passwd
+    register: user_result
+  - name: group verification
+    command: cat /etc/passwd
+    register: group_result    
+
+  - name: user info debug
+    debug:
+      msg: 
+      - "{{ user_result.stdout_lines }}"
+      - "{{ group_result.stdout_lines }}"
+
+
+      

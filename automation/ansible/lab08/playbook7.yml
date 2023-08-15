@@ -1,0 +1,10 @@
+---
+- name: This is a playbook with host variables
+  hosts: n01595368-c-vm1.canadacentral.cloudapp.azure.com
+  
+  tasks:
+    - name: Install Software Package
+      yum:
+       name: "{{ packages }}"
+       state: present
+...

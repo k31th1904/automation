@@ -1,0 +1,31 @@
+---
+- name: This is a playbook with embedded variables
+  hosts: linux[0]
+  vars_files:
+    - vars/userinfo.yml
+  tasks:
+    - name: Create Group 1
+      group:
+         name: "{{ grouplist1 }}"
+         state: present
+    - name: Create Group 2
+      group:
+         name: "{{ grouplist2 }}"
+         state: present
+    - name: Create User 1
+      user: 
+         name: "{{ userlist1 }}"
+         uid: 1800
+         append: true
+         groups: "{{ grouplist1 }}"
+         state: present
+    - name: Create User 2
+      user: 
+         name: "{{ userlist2 }}"
+         uid: 1900
+         home: /home/"{{ userlist2 }}"
+         shell: /bin/bash
+         append: true
+         groups: "{{ grouplist2 }}"
+         state: present
+...

@@ -1,0 +1,9 @@
+---
+# vars file for webserver-n01595368
+
+services:
+  - httpd
+
+copy: 
+  dest: /var/www/html/index.html
+  mode: 444

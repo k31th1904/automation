@@ -1,0 +1,22 @@
+---
+# vars file for profile_mgmt
+task_add:
+  path: /etc/rsyslog.conf
+  block: $FileCreateMode 0640
+
+task_ownership:
+  path: /etc/rsyslog.d
+  owner: root
+  group: root
+  mode: 640
+  # octal format for jinja, leading zero cause mistake
+
+task_permission:
+  path: /var/log
+  mode: 775
+    # octal format for jinja, leading zero cause mistake
+
+service: rsyslog
+
+
+  

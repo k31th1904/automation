@@ -1,0 +1,7 @@
+---
+# handlers file for webserver-n01595368
+- name: httpd_restart
+  systemd:
+    name: "httpd"
+    state: restarted
+    enabled: true

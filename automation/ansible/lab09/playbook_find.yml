@@ -1,0 +1,15 @@
+---
+- name: This is a playbook with conditional task 1
+  hosts: linux
+  gather_facts: true
+  
+
+  tasks:
+    - name: Gather user info from nodes
+      command: cat /etc/passwd
+      register: users
+    - name: Display node has n01595368
+      debug:
+        msg: "This node has n01595368"
+      when: users.stdout.find('n01595368') != -1
+...

@@ -1,0 +1,40 @@
+---
+- name: This is a playbook to handle task failures
+  hosts: linux
+  gather_facts: true
+
+  tasks:
+  - name: This block modifies etc profile
+    block:
+
+    - name: Adding text to etc profile
+      blockinfile:
+        path: /etc/profile1
+        insertafter: EOF
+        backup: yes
+        state: present
+        block: |
+          export TMOUT=900
+
+    - name: Replace certain line
+      lineinfile:
+        path: /etc/profile1
+        regex: "^umask"
+        line: "umask 0077"
+        state: present
+
+    rescue:
+    - name: This task will be executed if failure occurs
+      blockinfile:
+        path: ~/.bash_profile
+        insertafter: EOF   
+        backup: yes
+        state: present
+        block: |
+          umask 0066
+      
+    always:
+    - name: This task run anyway
+      debug:
+        msg: "Playbook execution completed."
+        

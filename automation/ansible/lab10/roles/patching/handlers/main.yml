@@ -1,0 +1,5 @@
+---
+# handlers file for patching
+- name: reboot_node
+  reboot:
+  

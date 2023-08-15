@@ -1,0 +1,19 @@
+---
+# vars file for profile_mgmt
+task_add:
+  path: /etc/profile
+  block: export TMOUT=900
+
+task_replace:
+  path: /etc/profile
+  regex: ^umask
+  line: umask 0077
+
+task_rescue:
+  path: ~/.bash_profile
+  block: umask 0066
+
+task_always:
+  msg: Playbook execution completed.
+
+  
