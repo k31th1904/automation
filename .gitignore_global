@@ -3,3 +3,5 @@
 .DS_Store
 .terraform.lock.hcl
 .gitignore
+.gitignore_global
+
